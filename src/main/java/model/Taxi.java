@@ -6,10 +6,10 @@ public class Taxi extends Vehicle {
     private BufferedImage spriteDerecha;
     private BufferedImage spriteIzquierda;
 
-    public Taxi(int x, int y, BufferedImage sprite, int speed) {
+    public Taxi(int x, int y, int speed) {
         super(x, y, null, speed);
-        setSpriteDerecha(uploadImage("Sprites/taxi_derecha.png"));
-        setSpriteIzquierda(uploadImage("Sprites/taxi_derecha.png"));
+        setSpriteDerecha(uploadImage("sprites/taxi_derecha.png"));
+        setSpriteIzquierda(uploadImage("sprites/taxi_d.png"));
     }
 
     public BufferedImage getSpriteDerecha() {

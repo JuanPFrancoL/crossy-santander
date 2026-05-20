@@ -6,7 +6,7 @@ public class MainFrame extends JFrame {
     GamePanel panel = new GamePanel();
 
     public MainFrame() {
-        setTitle("Cuadrado KeyPressed");
+        setTitle("Crossy Santander");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         add(panel);

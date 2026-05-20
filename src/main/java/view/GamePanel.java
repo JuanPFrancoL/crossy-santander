@@ -1,9 +1,14 @@
 package view;
 
+import model.Arbol;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel {
+    private Arbol arbol = new Arbol(0, 360);
+
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -19,7 +24,11 @@ public class GamePanel extends JPanel {
         dibujarCarril(g2, 630);
 
         dibujarCiclovia(g2, 325);
-        dibujarCiclovia(g2, 425);
+        dibujarCiclovia(g2, 415);
+
+        g.setColor(new Color(83, 147, 49));
+        g.fillRect(0, 355, 1000, 60);
+        g.drawImage(arbol.getSprite(), 20, 360, 20, 20, null);
 
 
     }
@@ -38,6 +47,6 @@ public class GamePanel extends JPanel {
 
     public void dibujarCiclovia(Graphics2D g, int y) {
         g.setColor(carriles);
-        g.fillRect(0, y, 1000, 20);
+        g.fillRect(0, y, 1000, 30);
     }
 }

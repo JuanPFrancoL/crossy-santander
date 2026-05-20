@@ -73,11 +73,11 @@ public abstract class Entity {
 
     /**
      * Carga una imagen desde la carpeta de recursos.
-     * Uso: Entidad.cargarImagen("pacman_left.png")
+     * Uso: Entidad.cargarImagen("imagen.png")
      */
     public static BufferedImage uploadImage(String nombre) {
         try {
-            InputStream is = Entity.class.getResourceAsStream("/images/" + nombre);
+            InputStream is = Entity.class.getResourceAsStream("/" + nombre);
             if (is == null) {
                 System.err.println("Imagen no encontrada: " + nombre);
                 return null;

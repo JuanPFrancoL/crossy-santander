@@ -1,13 +1,45 @@
 package view;
 
 import model.Arbol;
+import model.Bus;
+import model.Moto;
+import model.Taxi;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GamePanel extends JPanel {
-    private Arbol arbol = new Arbol(0, 360);
+    private List<Arbol> arboles;
+    private List<Bus> buses;
+    private List<Moto> motos;
+    private List<Taxi> taxis;
 
+    public GamePanel() {
+        //Arboles, son estaticos
+        arboles = new ArrayList<>();
+        arboles.add(new Arbol(100, 355));
+        arboles.add(new Arbol(300, 355));
+        arboles.add(new Arbol(500, 355));
+        arboles.add(new Arbol(700, 355));
+
+        // Buses
+        buses = new ArrayList<>();
+        buses.add(new Bus(0, 65, 3));
+        buses.add(new Bus(400, 65, 3));
+        buses.add(new Bus(0, 155, -3)); // negativo = va a la izquierda
+
+        // Motos
+        motos = new ArrayList<>();
+        motos.add(new Moto(0, 245, 5));
+        motos.add(new Moto(300, 245, 5));
+
+        // Taxis
+        taxis = new ArrayList<>();
+        taxis.add(new Taxi(0, 455, -4));
+        taxis.add(new Taxi(500, 545, 4));
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -28,7 +60,9 @@ public class GamePanel extends JPanel {
 
         g.setColor(new Color(83, 147, 49));
         g.fillRect(0, 355, 1000, 60);
-        g.drawImage(arbol.getSprite(), 20, 360, 20, 20, null);
+        for (Arbol a : arboles) {
+            g2.drawImage(a.getSprite(), a.getX(), a.getY(), 50, 50, null);
+        }
 
 
     }

@@ -3,7 +3,43 @@ package model;
 import java.awt.image.BufferedImage;
 
 public class Taxi extends Vehicle {
+    private BufferedImage spriteDerecha;
+    private BufferedImage spriteIzquierda;
+
     public Taxi(int x, int y, BufferedImage sprite, int speed) {
-        super(x, y, sprite, speed);
+        super(x, y, null, speed);
+        setSpriteDerecha(uploadImage("Sprites/taxi_derecha.png"));
+        setSpriteIzquierda(uploadImage("Sprites/taxi_derecha.png"));
+    }
+
+    public BufferedImage getSpriteDerecha() {
+        return spriteDerecha;
+    }
+
+    public void setSpriteDerecha(BufferedImage spriteDerecha) {
+        this.spriteDerecha = spriteDerecha;
+    }
+
+    public BufferedImage getSpriteIzquierda() {
+        return spriteIzquierda;
+    }
+
+    public void setSpriteIzquierda(BufferedImage spriteIzquierda) {
+        this.spriteIzquierda = spriteIzquierda;
+    }
+
+
+    @Override
+    public void update() {
+        setX(getX() + getSpeed());
+
+        if (getSpeed() > 0) {
+            setSprite(spriteDerecha);
+        } else {
+            setSprite(spriteIzquierda);
+        }
+
+        if (getX() > 1000) setX(-getWidth());
+        if (getX() < -getWidth()) setX(1000);
     }
 }

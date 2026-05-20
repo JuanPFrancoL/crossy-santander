@@ -35,8 +35,10 @@ public abstract class Jugador extends model.Entity {
     private boolean paused; // indica si el juego esta en pausa o no
 
     // ANIMACION
-    // pendiente...
-
+    private int currentFrame; // Frame actual de la animacion del sprite (esta entre 0 y total-1)
+    private int totalFrames; // Total de frames de animacion que tiene el personaje
+    private int frameCounter; // Contador para controlar la velocidad de la animacion
+    private static final int FRAME_SPEED = 8; // Cada cuantos frames de juego se avanza un frame de animacion
 
     // POSICION DE SPAWN
     // Se da el valor a los final en el constructor
@@ -46,11 +48,12 @@ public abstract class Jugador extends model.Entity {
     /**
      * Constructor de jugador
      *
-     * @param x      posicion X inicial
-     * @param y      posicion Y inicial
-     * @param sprite imagen inicial del personaje
+     * @param x           posicion X inicial
+     * @param y           posicion Y inicial
+     * @param sprite      imagen inicial del personaje
+     * @param totalFrames numero total de frames de animacion
      */
-    public Jugador(int x, int y, BufferedImage sprite) {
+    public Jugador(int x, int y, BufferedImage sprite, int totalFrames) {
         super(x, y, sprite);
         this.spawnX = x;
         this.spawnY = y;
@@ -62,6 +65,10 @@ public abstract class Jugador extends model.Entity {
         this.powerUpActive = powerUpActive;
         this.powerUpCount = powerUpCount;
         this.paused = paused;
+        this.currentFrame = 0;
+        this.totalFrames = totalFrames;
+        this.frameCounter = 0;
+        this.nombreJugador = "";
     }
 
     // logica
@@ -85,10 +92,17 @@ public abstract class Jugador extends model.Entity {
             powerUpCount--;
             if (powerUpCount <= 0) {
                 powerUpActive = false;
+                onPowerUpEnd();
             }
         }
 
-        // Pendiente: Animacion
+        // Avanzar animacion
+        frameCounter++;
+        if (frameCounter >= FRAME_SPEED) {
+            frameCounter = 0;
+            currentFrame = (currentFrame + 1) % totalFrames;
+            updateSprite();
+        }
     }
 
     /**
@@ -154,12 +168,12 @@ public abstract class Jugador extends model.Entity {
         setY(spawnY);
         setDirection(DIR_NONE);
         setActive(true);
-
-
+        currentFrame = 0;
+        frameCounter = 0;
     }
 
     /**
-     * Reinicia completamente al jugador
+     * Reinicia completamente al jugador:
      * posicion, vidas, puntaje, vida y powerup
      * Se llama al iniciar una nueva partida
      */
@@ -234,7 +248,8 @@ public abstract class Jugador extends model.Entity {
 
     // Nueva vida (cuando reciba daño)
     public void setHealth(int health) {
-        this.health = health;
+        this.health = Math.max(0, Math.min(health, MAX_HEALTH));
+        // Math.min asegura que health no supere MAX_HEALTH y Math.max que no baje de 0
     }
 
     public boolean isImmortality() {
@@ -256,6 +271,27 @@ public abstract class Jugador extends model.Entity {
 
     public void setPaused(boolean paused) {
         this.paused = paused;
+    }
+
+    /**
+     * @return frame de animacion actual
+     */
+    public int getCurrentFrame() {
+        return currentFrame;
+    }
+
+    /**
+     * @param currentFrame frame de animacion a establecer
+     */
+    public void setCurrentFrame(int currentFrame) {
+        this.currentFrame = currentFrame;
+    }
+
+    /**
+     * @return total de frames de animación del personaje
+     */
+    public int getTotalFrames() {
+        return totalFrames;
     }
 
     /**

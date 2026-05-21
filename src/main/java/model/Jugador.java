@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
  * Aplica herencia, encapsulamiento y polimorfismo
  *
  * @author Diego, Pablo, Jhoem
- * @version 1.0
+ * @version 1.1
  */
 public abstract class Jugador extends model.Entity {
 

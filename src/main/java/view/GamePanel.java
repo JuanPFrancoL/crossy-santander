@@ -21,7 +21,9 @@ public class GamePanel extends JPanel {
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
-
+    public Jugador getJugador() {
+        return jugador;
+    }
 
     public GamePanel() {
         //Arboles, son estaticos
@@ -120,4 +122,6 @@ public class GamePanel extends JPanel {
         g.setColor(carriles);
         g.fillRect(0, y, 1000, 30);
     }
+
+
 }

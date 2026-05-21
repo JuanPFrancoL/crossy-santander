@@ -2,11 +2,11 @@ package model;
 
 /**
  * Personaje jugable Jhoem
- * Hereda de Jugador y define sus sprites propios
- * Su powerup le permite recuperar vidas
+ * Hereda de Jugador y define sus sprites
+ * y la animacion de recoger items del suelo
  *
  * @author Diego, Pablo, Jhoem
- * @version 1.0
+ * @version 1.1
  */
 
 public class Jhoem extends model.Jugador {
@@ -16,34 +16,39 @@ public class Jhoem extends model.Jugador {
     // Movimiento
     private static final int SPEED = 3; // Velocidad de movimiento en px por frame
 
+    // Animacion de recoger item
+    private static final int PICKUP_DURATION = 30; // Cuantos frames dura la animacion de agacharse a recoger (medio segundo a 60fps)
+    private boolean pickingUp; // Indica si esta agachado recogiendo un item del suelo
+    private int pickUpCounter; // Contador de frames que faltan para terminar la animacion de recoger
+
     // Sprites
     /**
-     * Frames de animacion al caminar
-     * Carpeta: resources/sprites/jhoem/
+     * Frames de animacion del personaje segun estado y direccion
+     * Cada indice corresponde a una pose especifica
      */
     private static final String[] FRAMES_WALK = {
-            "main/resources/sprites/jhoem/jhoemBackStand.png",
-            "main/resources/sprites/jhoem/jhoemBackWalk1.png",
-            "main/resources/sprites/jhoem/jhoemBackWalk2.png",
-            "main/resources/sprites/jhoem/jhoemStand.png",
-            "main/resources/sprites/jhoem/jhoemStandLeft.png",
-            "main/resources/sprites/jhoem/jhoemStandRight.png",
-            "main/resources/sprites/jhoem/jhoemWalk1.png",
-            "main/resources/sprites/jhoem/jhoemWalk2.png",
-            "main/resources/sprites/jhoem/jhoemWalkLeft1.png",
-            "main/resources/sprites/jhoem/jhoemWalkRight1.png",
+            "main/resources/sprites/jhoem/jhoemBackStand.png", // 0
+            "main/resources/sprites/jhoem/jhoemBackWalk1.png", // 1
+            "main/resources/sprites/jhoem/jhoemBackWalk2.png", // 2
+            "main/resources/sprites/jhoem/jhoemStand.png", // 3
+            "main/resources/sprites/jhoem/jhoemStandLeft.png", // 4
+            "main/resources/sprites/jhoem/jhoemStandRight.png", // 5
+            "main/resources/sprites/jhoem/jhoemWalk1.png", // 6
+            "main/resources/sprites/jhoem/jhoemWalk2.png", // 7
+            "main/resources/sprites/jhoem/jhoemWalkLeft1.png", // 8
+            "main/resources/sprites/jhoem/jhoemWalkRight1.png", // 9
     };
 
-    private static final String SPRITE_POWERUP = "main/resources/sprites/jhoem/jhoemTaking.png"; // Sprite que se muestra al agarrar powerup
-    private boolean showingPowerUp; // Dice si esta mostrando el efecto de agarrar un powerup
+    private static final String SPRITE_TAKING = "main/resources/sprites/jhoem/jhoemTaking.png"; // Sprite agachado al recoger un item del suelo
 
     /**
      * Constructor de Jhoem
-     * Carga el primer frame y posiciona al personaje
+     * Carga el primer frame de animacion y posiciona el personaje
      */
     public Jhoem() {
-        super(SPAWN_X, SPAWN_Y, uploadImage(FRAMES_WALK[0]), FRAMES_WALK.length);
-        this.showingPowerUp = false;
+        super(SPAWN_X, SPAWN_Y, uploadImage(FRAMES_WALK[3]), FRAMES_WALK.length);
+        this.pickingUp = false;
+        this.pickUpCounter = 0;
         setDirection(DIR_NONE);
     }
 
@@ -56,64 +61,102 @@ public class Jhoem extends model.Jugador {
     @Override
     public void update() {
         if (isPaused()) return;
+
+        // Mientras recoge un item cuenta frames y no se mueve
+        if (pickingUp) {
+            pickUpCounter--;
+            if (pickUpCounter <= 0) {
+                pickingUp = false; // ya termino de recoger y se pone de pie
+                updateSprite();
+            }
+            return;
+        }
+
         setX(getX() + calculateDx() * SPEED);
         setY(getY() + calculateDy() * SPEED);
 
-        super.update();
+        super.update(); // animacion con contadores de inmortalidad y powerup
     }
 
     // Animacion
 
     /**
-     * Actualiza el sprite segun el frame actual o el estado de powerup
+     * Actualiza el sprite segun su direccion y frame actual
+     * Si esta recogiendo un item muestra el sprite agachado
      */
     @Override
     public void updateSprite() {
-        if (showingPowerUp) {
-            setSprite(uploadImage(SPRITE_POWERUP));
+        if (pickingUp) {
+            setSprite(uploadImage(SPRITE_TAKING));
+            return;
+        }
+
+        if (getDirection() == DIR_UP) {
+            if (getCurrentFrame() % 2 == 0) {
+                setSprite(uploadImage(FRAMES_WALK[1])); // jhoemBackWalk1
+            } else {
+                setSprite(uploadImage(FRAMES_WALK[2])); // jhoemBackWalk2
+            }
+        } else if (getDirection() == DIR_DOWN) {
+            if (getCurrentFrame() % 2 == 0) {
+                setSprite(uploadImage(FRAMES_WALK[6])); // jhoemWalk1
+            } else {
+                setSprite(uploadImage(FRAMES_WALK[7])); // jhoemWalk2
+            }
+        } else if (getDirection() == DIR_LEFT) {
+            setSprite(uploadImage(FRAMES_WALK[8])); // jhoemWalkLeft1
+        } else if (getDirection() == DIR_RIGHT) {
+            setSprite(uploadImage(FRAMES_WALK[9])); // jhoemWalkRight1
         } else {
-            int frame = getCurrentFrame() % FRAMES_WALK.length;
-            setSprite(uploadImage(FRAMES_WALK[frame]));
+            setSprite(uploadImage(FRAMES_WALK[3])); // jhoemStand - quieto
         }
     }
 
-    // Powerup
+    // Powerup (items del suelo)
 
     /**
-     * Otorga inmortalidad temporal y vida extra
-     * muestra el sprite especial durante el efecto
+     * El powerup es un item recogido del suelo
+     * No aplica logica propia
      */
     @Override
     public void onPowerUpStart() {
-        addLife();
-        showingPowerUp = true;
-        setSprite(uploadImage(SPRITE_POWERUP));
+        // Logica manejada por el item del suelo
     }
 
     /**
-     * al terminar el power
+     * Al terminar el efecto del powerup vuelve al sprite normal
      */
     @Override
     public void onPowerUpEnd() {
-        showingPowerUp = false;
         updateSprite();
+    }
+
+    // Metodo para recoger items
+
+    /**
+     * Inicia la animacion de agacharse apra recoger un item del suelo
+     * Durante el tiempo establecido de frames el personaje no se podra mover
+     * Llamar desde el controlador al detectar colision con un item
+     */
+    public void startPickUp() {
+        pickingUp = true;
+        pickUpCounter = PICKUP_DURATION;
+        setSprite(uploadImage(SPRITE_TAKING)); // se agacha inmediatamente
     }
 
     // Getters
 
     /**
      * velocidad de Jhoem en px por frame
-     *
-     * @return
      */
     public int getSpeed() {
         return SPEED;
     }
 
     /**
-     * @return true si el efecto de agarrar powerup esta activo
+     * @return true si el personaje esta en animacion de recoger un item
      */
-    public boolean isShowingPowerUp() {
-        return showingPowerUp;
+    public boolean isPickingUp() {
+        return pickingUp;
     }
 }

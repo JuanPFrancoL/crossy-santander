@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
         setVisible(true);
         cardLayout = new CardLayout();
         contenedor = new JPanel(cardLayout);
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(this);
 
         contenedor.add(new PanelBienvenida(this), "bienvenida");
         contenedor.add(new PanelReglas(this), "reglas");

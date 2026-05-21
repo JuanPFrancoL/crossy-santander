@@ -36,12 +36,14 @@ public class GamePanel extends JPanel {
     private MainFrame frame;
     private int tiempoSegundos = 0;
     private int frameCount = 0;
+    private boolean gameOver = false;
 
     /**
      * Constructor del panel
      * Inicializa y posiciona todos los vehiculos, arboles e items del mapa
      */
-    public GamePanel() {
+    public GamePanel(MainFrame frame) {
+        this.frame = frame;
         //Arboles, son estaticos
         arboles = new ArrayList<>();
         arboles.add(new Arbol(100, 355));
@@ -110,6 +112,15 @@ public class GamePanel extends JPanel {
      */
     public void update() {
 
+        if (gameOver) return;
+
+        frameCount++;
+
+        if (frameCount >= 60) {
+            tiempoSegundos++;
+            frameCount = 0;
+        }
+
         for (Moto m : motos) m.update();
         for (Bus b : buses) b.update();
         for (Taxi t : taxis) t.update();
@@ -118,8 +129,18 @@ public class GamePanel extends JPanel {
             jugador.update();
 
             if (jugador.getY() > 700 && jugador.isActive()) {
+
+                gameOver = true;
+
                 SaveManager.guardarScore(jugador.getScore());
-                jugador.setActive(false);
+
+                frame.mostrarGameOver(
+                        jugador.getNombreJugador(),
+                        jugador.getScore(),
+                        tiempoSegundos
+                );
+
+                return;
             }
         }
 
@@ -305,6 +326,7 @@ public class GamePanel extends JPanel {
     }
 
     public void reiniciar() {
+        gameOver = false;
         tiempoSegundos = 0;
         frameCount = 0;
         jugador = null;

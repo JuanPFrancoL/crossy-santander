@@ -27,16 +27,16 @@ public class Diego extends model.Jugador {
      * Cada indice es una postura especifica
      */
     private static final String[] FRAMES_WALK = {
-            "main/resources/sprites/diego/diegoBackStand.png", // 0
-            "main/resources/sprites/diego/diegoBackWalk1.png", // 1
-            "main/resources/sprites/diego/diegoBackWalk2.png", // 2
-            "main/resources/sprites/diego/diegoStand.png", // 3
-            "main/resources/sprites/diego/diegoStandLeft.png", // 4
-            "main/resources/sprites/diego/diegoStandRight.png", // 5
-            "main/resources/sprites/diego/diegoWalk1.png", // 6
-            "main/resources/sprites/diego/diegoWalk2.png", // 7
-            "main/resources/sprites/diego/diegoWalkLeft1.png", // 8
-            "main/resources/sprites/diego/diegoWalkRight1.png", // 9
+            "sprites/diego/diegoBackStand.png", // 0
+            "sprites/diego/diegoBackWalk1.png", // 1
+            "sprites/diego/diegoBackWalk2.png", // 2
+            "sprites/diego/diegoStand.png", // 3
+            "sprites/diego/diegoStandLeft.png", // 4
+            "sprites/diego/diegoStandRight.png", // 5
+            "sprites/diego/diegoWalk1.png", // 6
+            "sprites/diego/diegoWalk2.png", // 7
+            "sprites/diego/diegoWalkLeft1.png", // 8
+            "sprites/diego/diegoWalkRight1.png", // 9
     };
 
     // Sprite agachado al recoger un item del suelo

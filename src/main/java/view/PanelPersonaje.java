@@ -1,5 +1,6 @@
 package view;
 
+import controller.SaveManager;
 import model.Diego;
 import model.Entity;
 import model.Jhoem;
@@ -12,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 public class PanelPersonaje extends JPanel {
+    private JTextField nameField;
     private MainFrame frame;
     private GamePanel gamePanel;
 
@@ -22,11 +24,18 @@ public class PanelPersonaje extends JPanel {
     public PanelPersonaje(MainFrame frame, GamePanel gamePanel) {
         this.frame = frame;
         this.gamePanel = gamePanel;
+
         setBackground(new Color(36, 0, 49));
+        setLayout(null); // 🔴 obligatorio para posicionar el JTextField
 
         imgP1 = Entity.uploadImage("sprites/jhoem/jhoemStand.png");
         imgP2 = Entity.uploadImage("sprites/diego/diegoStand.png");
         imgP3 = Entity.uploadImage("sprites/pablo/pabloStand.png");
+
+        nameField = new JTextField();
+        nameField.setBounds(430, 500, 150, 30);
+        nameField.setFont(new Font("Arial", Font.PLAIN, 16));
+        add(nameField);
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -34,14 +43,32 @@ public class PanelPersonaje extends JPanel {
                 int x = e.getX();
                 int y = e.getY();
 
+                String nombre = nameField.getText();
+
+                if (nombre.isEmpty()) {
+                    System.out.println("Escribe un nombre primero");
+                    return;
+                }
+
+                SaveManager.guardarNombre(nombre);
+
+
                 if (x >= 100 && x <= 250 && y >= 300 && y <= 450) {
-                    gamePanel.setJugador(new Jhoem());
+                    Diego j = new Diego();
+                    j.setNombreJugador(nombre);
+                    gamePanel.setJugador(j);
                     frame.mostrarPanel("juego");
+
                 } else if (x >= 420 && x <= 570 && y >= 300 && y <= 450) {
-                    gamePanel.setJugador(new Diego());
+                    Jhoem j = new Jhoem();
+                    j.setNombreJugador(nombre);
+                    gamePanel.setJugador(j);
                     frame.mostrarPanel("juego");
+
                 } else if (x >= 740 && x <= 890 && y >= 300 && y <= 450) {
-                    gamePanel.setJugador(new Pablo());
+                    Pablo j = new Pablo();
+                    j.setNombreJugador(nombre);
+                    gamePanel.setJugador(j);
                     frame.mostrarPanel("juego");
                 }
             }

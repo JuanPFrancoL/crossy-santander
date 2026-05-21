@@ -26,6 +26,10 @@ public abstract class Jugador extends model.Entity {
     private String nombreJugador; // Nombre ingresado por el jugador en la interfaz
     private int lives; // Numero de vidas restantes
     private int score; // Puntuacion acumulada
+    private static final int iScore = 1000;
+    private static final int scorest = 5; // puntos que pierde
+    private static final int scoreTime = 60; // cada 60 frames = 1 segundo
+    private int scoreTimer;
     private int health;
     private boolean immortality; // Indica si el jugador esta en estado inmortal despues de recibir daño
     private int immortalityCount; // Contador de frames de la inmortalidad (parpadeo tras daño)
@@ -59,7 +63,8 @@ public abstract class Jugador extends model.Entity {
         this.spawnX = x;
         this.spawnY = y;
         this.lives = INITIAL_LIVES;
-        this.score = score;
+        this.score = iScore;
+        this.scoreTimer = 0;
         this.health = MAX_HEALTH;
         this.immortality = false;
         this.immortalityCount = 0;
@@ -80,6 +85,20 @@ public abstract class Jugador extends model.Entity {
      */
     @Override
     public void update() {
+        // SISTEMA DE PUNTOS POR TIEMPO
+        scoreTimer++;
+
+        if (scoreTimer >= scoreTime) {
+            scoreTimer = 0;
+
+            if (score > 0) {
+                score -= scorest;
+
+                if (score < 0) {
+                    score = 0;
+                }
+            }
+        }
         // Descontar inmortalidad
         if (immortality) {
             immortalityCount--;
@@ -179,6 +198,8 @@ public abstract class Jugador extends model.Entity {
      * Se llama al iniciar una nueva partida
      */
     public void resetAll() {
+        score = iScore;
+        scoreTimer = 0;
         resetPosition();
         lives = INITIAL_LIVES;
         score = 0;

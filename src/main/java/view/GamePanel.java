@@ -1,6 +1,7 @@
 package view;
 
 import controller.InputHandler;
+import controller.SaveManager;
 import model.Arbol;
 import model.Bus;
 import model.Empanada;
@@ -99,10 +100,20 @@ public class GamePanel extends JPanel {
      * Actualiza la logica de vehiculos y jugador, luego repinta el panel
      */
     public void update() {
+
+        for (Moto m : motos) m.update();
         for (Bus b : buses) b.update();
         for (Taxi t : taxis) t.update();
-        for (Moto m : motos) m.update();
-        if (jugador != null) jugador.update();
+
+        if (jugador != null) {
+            jugador.update();
+
+            if (jugador.getY() > 700 && jugador.isActive()) {
+                SaveManager.guardarScore(jugador.getScore());
+                jugador.setActive(false);
+            }
+        }
+
         repaint();
     }
 
@@ -177,6 +188,12 @@ public class GamePanel extends JPanel {
                 g2.drawImage(jugador.getSprite(), jugador.getX(), jugador.getY(), 50, 70, null);
             }
         }
+        if (jugador != null) {
+
+            g.setColor(Color.white);
+            g.drawString("Puntos: " + jugador.getScore(), 20, 30);
+        }
+
 
         // HUD
         dibujarHUD(g2);
@@ -256,6 +273,7 @@ public class GamePanel extends JPanel {
     public List<Bus> getBuses() {
         return buses;
     }
+
 
     public List<Taxi> getTaxis() {
         return taxis;

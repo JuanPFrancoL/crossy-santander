@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GamePanel extends JPanel {
+    private List<Moto> motos;
     private List<Arbol> arboles;
     private List<Bus> buses;
-    private List<Moto> motos;
     private List<Taxi> taxis;
     private Jugador jugador;
 
@@ -49,8 +49,8 @@ public class GamePanel extends JPanel {
     }
 
     public void update() {
-        for (Bus b : buses) b.update();
         for (Moto m : motos) m.update();
+        for (Bus b : buses) b.update();
         for (Taxi t : taxis) t.update();
         repaint();
     }
@@ -78,17 +78,18 @@ public class GamePanel extends JPanel {
             g2.drawImage(a.getSprite(), a.getX(), a.getY(), 50, 50, null);
         }
 
+        for (Moto m : motos) {
+            if (m.getSprite() != null) {
+                g2.drawImage(m.getSprite(), m.getX(), m.getY(), 80, 60, null);
+            }
+        }
+
         for (Bus b : buses) {
             if (b.getSprite() != null) {
                 g2.drawImage(b.getSprite(), b.getX(), b.getY(), 120, 100, null);
             }
         }
 
-        for (Moto m : motos) {
-            if (m.getSprite() != null) {
-                g2.drawImage(m.getSprite(), m.getX(), m.getY(), 80, 60, null);
-            }
-        }
 
         for (Taxi t : taxis) {
             if (t.getSprite() != null) {

@@ -9,7 +9,7 @@ package main.java.model;
  * @version 1.0
  */
 
-public class Jhoem extends Jugador {
+public class Jhoem extends model.Jugador {
     // Posicion inicial
     private static final int SPAWN_X = 200; // Posicion X de aparicion de Jhoem
     private static final int SPAWN_Y = 20; // Posicion Y de aparicion de Jhoem
@@ -91,7 +91,7 @@ public class Jhoem extends Jugador {
     }
 
     /**
-     * al terminar el powerup regresa al sprite de caminar normal
+     * al terminar el power
      */
     @Override
     public void onPowerUpEnd() {

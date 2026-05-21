@@ -6,6 +6,7 @@ public class Pablo extends Entity {
     public Pablo(int x, int y, BufferedImage sprite) {
         super(x, y, sprite);
     }
+    
 
     @Override
     public void update() {

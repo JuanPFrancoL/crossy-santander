@@ -26,19 +26,22 @@ public class GamePanel extends JPanel {
 
         // Buses
         buses = new ArrayList<>();
-        buses.add(new Bus(0, 65, 3));
-        buses.add(new Bus(400, 65, 3));
-        buses.add(new Bus(0, 155, -3)); // negativo = va a la izquierda
+        //Buses carriles superiores
+        buses.add(new Bus(0, 46, 3));
+        buses.add(new Bus(50, 222, -3)); // negativo = va a la izquierda
+        //Buses carriles inferiores
+        buses.add(new Bus(600, 428, 3));
+        buses.add(new Bus(200, 530, -3));
 
         // Motos
         motos = new ArrayList<>();
-        motos.add(new Moto(0, 245, 5));
-        motos.add(new Moto(300, 245, 5));
+        motos.add(new Moto(500, 245, -5));
+        motos.add(new Moto(640, 545, -5));
 
         // Taxis
         taxis = new ArrayList<>();
-        taxis.add(new Taxi(0, 455, -4));
-        taxis.add(new Taxi(500, 545, 4));
+        taxis.add(new Taxi(400, 134, 3));
+        taxis.add(new Taxi(530, 632, -4));
     }
 
     public void update() {
@@ -69,6 +72,24 @@ public class GamePanel extends JPanel {
         g.fillRect(0, 355, 1000, 60);
         for (Arbol a : arboles) {
             g2.drawImage(a.getSprite(), a.getX(), a.getY(), 50, 50, null);
+        }
+
+        for (Bus b : buses) {
+            if (b.getSprite() != null) {
+                g2.drawImage(b.getSprite(), b.getX(), b.getY(), 120, 100, null);
+            }
+        }
+
+        for (Moto m : motos) {
+            if (m.getSprite() != null) {
+                g2.drawImage(m.getSprite(), m.getX(), m.getY(), 80, 60, null);
+            }
+        }
+
+        for (Taxi t : taxis) {
+            if (t.getSprite() != null) {
+                g2.drawImage(t.getSprite(), t.getX(), t.getY(), 120, 100, null);
+            }
         }
 
 

@@ -34,6 +34,7 @@ public class MainFrame extends JFrame {
 
         // Arranca el hilo solo cuando empieza el juego
         if (nombre.equals("juego")) {
+            gamePanel.requestFocusInWindow();
             controller.GameController controller = new controller.GameController(gamePanel);
             new Thread(controller).start();
         }

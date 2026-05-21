@@ -1,5 +1,6 @@
 package view;
 
+import controller.InputHandler;
 import model.Arbol;
 import model.Bus;
 import model.Jugador;
@@ -20,7 +21,11 @@ public class GamePanel extends JPanel {
 
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
+        addKeyListener(new InputHandler(jugador, this));
+        setFocusable(true);
+        requestFocus();
     }
+
     public Jugador getJugador() {
         return jugador;
     }
@@ -52,12 +57,16 @@ public class GamePanel extends JPanel {
         taxis = new ArrayList<>();
         taxis.add(new Taxi(400, 134, 3));
         taxis.add(new Taxi(530, 632, -4));
+
+        setFocusable(true);
+        requestFocus();
     }
 
     public void update() {
         for (Moto m : motos) m.update();
         for (Bus b : buses) b.update();
         for (Taxi t : taxis) t.update();
+        if (jugador != null) jugador.update();
         repaint();
     }
 
@@ -101,6 +110,10 @@ public class GamePanel extends JPanel {
             if (t.getSprite() != null) {
                 g2.drawImage(t.getSprite(), t.getX(), t.getY(), 120, 100, null);
             }
+        }
+
+        if (jugador != null && jugador.getSprite() != null) {
+            g2.drawImage(jugador.getSprite(), jugador.getX(), jugador.getY(), 50, 70, null);
         }
 
 

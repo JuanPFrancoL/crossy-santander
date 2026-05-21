@@ -10,8 +10,13 @@ import java.awt.event.KeyEvent;
  * Clase que permite usar teclas para mover el jugador.
  */
 public class InputHandler extends KeyAdapter {
-    Jugador jugador;
-    GamePanel gamePanel;
+    private Jugador jugador;
+    private GamePanel gamePanel;
+
+    public InputHandler(Jugador jugador, GamePanel gamePanel) {
+        this.jugador = jugador;
+        this.gamePanel = gamePanel;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -22,17 +27,20 @@ public class InputHandler extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         int tecla = e.getKeyCode();
         if (tecla == KeyEvent.VK_LEFT) {
-            jugador.setY(jugador.getY() - jugador.getSpeed());
+            jugador.setDirection(Jugador.DIR_LEFT);
         } else if (tecla == KeyEvent.VK_RIGHT) {
-
+            jugador.setDirection(Jugador.DIR_RIGHT);
         } else if (tecla == KeyEvent.VK_UP) {
-
+            jugador.setDirection(Jugador.DIR_UP);
         } else if (tecla == KeyEvent.VK_DOWN) {
-
+            jugador.setDirection(Jugador.DIR_DOWN);
         }
+        jugador.update();
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {
+        jugador.setDirection(Jugador.DIR_NONE);
     }
 }

@@ -2,6 +2,7 @@ package view;
 
 import model.Arbol;
 import model.Bus;
+import model.Jugador;
 import model.Moto;
 import model.Taxi;
 
@@ -15,6 +16,8 @@ public class GamePanel extends JPanel {
     private List<Bus> buses;
     private List<Moto> motos;
     private List<Taxi> taxis;
+    private Jugador jugador;
+
 
     public GamePanel() {
         //Arboles, son estaticos

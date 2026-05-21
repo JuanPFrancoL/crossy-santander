@@ -115,6 +115,11 @@ public class GamePanel extends JPanel {
         if (jugador != null && jugador.getSprite() != null) {
             g2.drawImage(jugador.getSprite(), jugador.getX(), jugador.getY(), 50, 70, null);
         }
+        if (jugador != null) {
+
+            g.setColor(Color.white);
+            g.drawString("Puntos: " + jugador.getScore(), 20, 30);
+        }
 
 
     }
@@ -135,6 +140,7 @@ public class GamePanel extends JPanel {
         g.setColor(carriles);
         g.fillRect(0, y, 1000, 30);
     }
+
 
 
 }

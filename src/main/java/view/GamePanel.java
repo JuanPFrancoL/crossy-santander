@@ -123,5 +123,8 @@ public class GamePanel extends JPanel {
         g.fillRect(0, y, 1000, 30);
     }
 
+    public void dibujarPj(Graphics2D g){
+        g.drawImage(getJugador().getSprite(), getJugador().getSpawnX(), getJugador().getSpawnY(), null);
+    }
 
 }

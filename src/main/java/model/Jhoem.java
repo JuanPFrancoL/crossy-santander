@@ -41,6 +41,7 @@ public class Jhoem extends model.Jugador {
 
     private static final String SPRITE_TAKING = "main/resources/sprites/jhoem/jhoemTaking.png"; // Sprite agachado al recoger un item del suelo
 
+
     /**
      * Constructor de Jhoem
      * Carga el primer frame de animacion y posiciona el personaje

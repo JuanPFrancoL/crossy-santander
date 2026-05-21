@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 
  Clase que permite usar teclas para mover el jugador.*/
 public class InputHandler extends KeyAdapter {
-    model.Jhoem jhoem;
+    model.Jugador jugador;
     GamePanel gamePanel;
 
     @Override

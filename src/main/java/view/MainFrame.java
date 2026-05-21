@@ -1,5 +1,6 @@
 package view;
 
+import controller.AudioManager;
 import controller.GameController;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class MainFrame extends JFrame {
     private PanelGameOver panelGameOver;
     private Thread gameThread;
     private GameController controller;
+    private AudioManager audioManager;
 
     public MainFrame() {
         setTitle("Crossy Santander");
@@ -36,6 +38,7 @@ public class MainFrame extends JFrame {
         cardLayout.show(contenedor, "bienvenida");
         panelGameOver = new PanelGameOver(this);
         contenedor.add(panelGameOver, "gameover");
+        audioManager = new AudioManager();
     }
 
     public void mostrarPanel(String nombre) {
@@ -43,7 +46,9 @@ public class MainFrame extends JFrame {
 
         // Arranca el hilo solo cuando empieza el juego
         if (nombre.equals("juego")) {
-
+            audioManager.reproducirLoop(
+                    audioManager.getMusica()
+            );
             gamePanel.requestFocusInWindow();
 
             if (gameThread == null || !gameThread.isAlive()) {
@@ -69,6 +74,12 @@ public class MainFrame extends JFrame {
     public void mostrarGameOver(String nombre, int puntaje, int tiempo) {
         panelGameOver.setDatos(nombre, puntaje, tiempo);
         mostrarPanel("gameover");
+        audioManager.detener(
+                audioManager.getMusica()
+        );
+        audioManager.reproducirLoop(
+                audioManager.getWin()
+        );
     }
 
     public void reiniciarJuego() {

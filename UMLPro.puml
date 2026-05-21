@@ -1,0 +1,363 @@
+@startuml
+class view.PanelBienvenida {
+- MainFrame frame
+# void paintComponent(Graphics)
+}
+
+
+class model.Bus {
+- {static} BufferedImage[] SPRITES_DERECHA
+- {static} BufferedImage[] SPRITES_IZQUIERDA
+- BufferedImage spriteDerecha
+- BufferedImage spriteIzquierda
++ BufferedImage getSpriteDerecha()
++ void setSpriteDerecha(BufferedImage)
++ BufferedImage getSpriteIzquierda()
++ void setSpriteIzquierda(BufferedImage)
++ void update()
+}
+
+
+class view.PanelUsuario {
+- MainFrame frame
+- JTextField campoNombre
+- String nombreIngresado
+# void paintComponent(Graphics)
+}
+
+
+class view.PanelGameOver {
+- MainFrame frame
+- String nombreJugador
+- int puntaje
+- int tiempo
++ void setDatos(String,int,int)
+# void paintComponent(Graphics)
+}
+
+
+class model.Pablo {
+- {static} int SPAWN_X
+- {static} int SPAWN_Y
+- {static} int SPEED
+- {static} int PICKUP_DURATION
+- boolean pickingUp
+- int pickUpCounter
+- {static} String[] FRAMES_WALK
++ {static} String SPRITE_DOWN
++ void update()
++ void updateSprite()
++ void onPowerUpStart()
++ void onPowerUpEnd()
++ void startPickUp()
++ int getSpeed()
++ boolean isPickingUp()
+}
+
+
+class model.Moto {
+- BufferedImage spriteDerecha
+- BufferedImage spriteIzquierda
+- {static} BufferedImage[] SPRITES_DERECHA
+- {static} BufferedImage[] SPRITES_IZQUIERDA
++ BufferedImage getSpriteDerecha()
++ void setSpriteDerecha(BufferedImage)
++ BufferedImage getSpriteIzquierda()
++ void setSpriteIzquierda(BufferedImage)
++ void update()
+}
+
+
+class controller.Main {
++ {static} void main(String[])
+}
+
+class model.Empanada {
++ void aplicarEfecto(Jugador)
++ void update()
+}
+
+class view.GamePanel {
+- List<Moto> motos
+- List<Arbol> arboles
+- List<Bus> buses
+- List<Taxi> taxis
+- List<Empanada> empanadas
+- List<Vive100> vive100s
+- Jugador jugador
+- String nombreJugador
+- MainFrame frame
+- int tiempoSegundos
+- int frameCount
+- boolean gameOver
+- Color carriles
++ void setJugador(Jugador)
++ Jugador getJugador()
++ void update()
+# void paintComponent(Graphics)
+- void dibujarHUD(Graphics2D)
++ void dibujarCarril(Graphics2D,int)
++ void dibujarAnden(Graphics2D,int)
++ void dibujarCiclovia(Graphics2D,int)
++ void setNombreJugador(String)
++ List<Bus> getBuses()
++ List<Taxi> getTaxis()
++ List<Moto> getMotos()
++ List<Arbol> getArboles()
++ List<Empanada> getEmpanadas()
++ List<Vive100> getVive100s()
++ void reiniciar()
+}
+
+
+abstract class model.Jugador {
++ {static} int INITIAL_LIVES
++ {static} int MAX_HEALTH
++ {static} int DAMAGE_VEHICLE
++ {static} int POINTS_POWERUP
++ {static} int POWERUP_DURATION
+- String nombreJugador
+- int lives
+- int score
+- {static} int iScore
+- {static} int scorest
+- {static} int scoreTime
+- int scoreTimer
+- int health
+- boolean immortality
+- int immortalityCount
+- {static} int IMMORTALITY_DURATION
+- boolean powerUpActive
+- int powerUpCount
+- boolean paused
+- int speed
+- int currentFrame
+- int totalFrames
+- int frameCounter
+- {static} int FRAME_SPEED
+- int spawnX
+- int spawnY
++ void update()
++ void receiveDamage(int)
++ void addScore(int)
++ void addLife()
++ void activatePowerUp()
++ void resetPosition()
++ void resetAll()
++ void togglePause()
++ {abstract}void updateSprite()
++ {abstract}void onPowerUpStart()
++ {abstract}void onPowerUpEnd()
++ String getNombreJugador()
++ void setNombreJugador(String)
++ int getLives()
++ void setLives(int)
++ int getScore()
++ void setScore(int)
++ int getHealth()
++ void setHealth(int)
++ boolean isImmortality()
++ boolean isPowerUpActive()
++ int getPowerUpCount()
++ boolean isPaused()
++ void setPaused(boolean)
++ int getCurrentFrame()
++ void setCurrentFrame(int)
++ int getTotalFrames()
++ int getSpawnX()
++ int getSpawnY()
++ int getSpeed()
++ void setSpeed(int)
++ void aplicarEmpanada()
++ void aplicarVive100()
+}
+
+
+class controller.GameController {
+- GamePanel panel
+- MainFrame frame
+- boolean enEjecucion
+- ArrayList<Jugador> historial
+- Clip choque
+- Clip musica
++ void run()
+- void comprobarColisiones()
+- void verificarGameOver(Jugador)
++ void detener()
+- Clip cargarSonido(String)
+- void reproducirSonido(Clip)
+- void cerrarAudio()
+}
+
+
+class model.Vive100 {
++ void aplicarEfecto(Jugador)
++ void update()
+}
+
+class model.Arbol {
++ void update()
+}
+
+class model.Diego {
+- {static} int SPAWN_X
+- {static} int SPAWN_Y
+- {static} int SPEED
+- boolean pickingUp
+- int pickUpCounter
+- {static} int PICKUP_DURATION
+- {static} String[] FRAMES_WALK
+- {static} String SPRITE_DOWN
++ void update()
++ void updateSprite()
++ void onPowerUpStart()
++ void onPowerUpEnd()
++ void startPickUp()
++ int getSpeed()
++ boolean isPickingUp()
+}
+
+
+class controller.InputHandler {
+- Jugador jugador
+- GamePanel gamePanel
++ void keyTyped(KeyEvent)
++ void keyPressed(KeyEvent)
++ void keyReleased(KeyEvent)
+}
+
+
+abstract class model.Entity {
++ {static} int DIR_NONE
++ {static} int DIR_LEFT
++ {static} int DIR_UP
++ {static} int DIR_RIGHT
++ {static} int DIR_DOWN
+- int x
+- int y
+- int width
+- int height
+- BufferedImage sprite
+- boolean active
+- int direction
++ {abstract}void update()
++ Rectangle getHitBox()
++ Rectangle getHitBox(int,int)
++ int calculateDx()
++ int calculateDy()
++ {static} BufferedImage uploadImage(String)
++ int getX()
++ void setX(int)
++ int getY()
++ void setY(int)
++ int getWidth()
++ void setWidth(int)
++ int getHeight()
++ void setHeight(int)
++ BufferedImage getSprite()
++ void setSprite(BufferedImage)
++ boolean isActive()
++ void setActive(boolean)
++ int getDirection()
++ void setDirection(int)
+}
+
+
+class model.Vehicle {
+# int speed
++ int getSpeed()
++ void setSpeed(int)
++ void update()
+}
+
+
+class view.MainFrame {
+- GamePanel gamePanel
+- JPanel contenedor
+- CardLayout cardLayout
+- String nombreJugador
+- PanelGameOver panelGameOver
+- Thread gameThread
+- GameController controller
++ void mostrarPanel(String)
++ void setNombreJugador(String)
++ String getNombreJugador()
++ void mostrarGameOver(String,int,int)
++ void reiniciarJuego()
+}
+
+
+class view.PanelPersonaje {
+- MainFrame frame
+- GamePanel gamePanel
+- BufferedImage imgP1
+- BufferedImage imgP2
+- BufferedImage imgP3
+# void paintComponent(Graphics)
+}
+
+
+class model.Jhoem {
+- {static} int SPAWN_X
+- {static} int SPAWN_Y
+- {static} int SPEED
+- {static} int PICKUP_DURATION
+- boolean pickingUp
+- int pickUpCounter
+- {static} String[] FRAMES_WALK
+- {static} String SPRITE_TAKING
++ void update()
++ void updateSprite()
++ void onPowerUpStart()
++ void onPowerUpEnd()
++ void startPickUp()
++ int getSpeed()
++ boolean isPickingUp()
+}
+
+
+class view.PanelReglas {
+- MainFrame frame
+# void paintComponent(Graphics)
+}
+
+
+class controller.SaveManager {
++ {static} void guardarNombre(String)
++ {static} void guardarScore(int)
+}
+
+class model.Taxi {
+- BufferedImage spriteDerecha
+- BufferedImage spriteIzquierda
++ BufferedImage getSpriteDerecha()
++ void setSpriteDerecha(BufferedImage)
++ BufferedImage getSpriteIzquierda()
++ void setSpriteIzquierda(BufferedImage)
++ void update()
+}
+
+
+
+
+view.JPanel <|-- view.PanelBienvenida
+model.Vehicle <|-- model.Bus
+view.JPanel <|-- view.PanelUsuario
+view.JPanel <|-- view.PanelGameOver
+model.Jugador <|-- model.Pablo
+model.Vehicle <|-- model.Moto
+model.Entity <|-- model.Empanada
+view.JPanel <|-- view.GamePanel
+model.Entity <|-- model.Jugador
+controller.Runnable <|.. controller.GameController
+model.Entity <|-- model.Vive100
+model.Entity <|-- model.Arbol
+model.Jugador <|-- model.Diego
+java.awt.event.KeyAdapter <|-- controller.InputHandler
+model.Entity <|-- model.Vehicle
+view.JFrame <|-- view.MainFrame
+view.JPanel <|-- view.PanelPersonaje
+model.Jugador <|-- model.Jhoem
+view.JPanel <|-- view.PanelReglas
+model.Vehicle <|-- model.Taxi
+@enduml

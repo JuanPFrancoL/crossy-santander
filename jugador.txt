@@ -13,3 +13,5 @@ Nombre: a
 Score: 970
 Nombre: ay
 Score: 945
+Nombre: o
+Score: 955

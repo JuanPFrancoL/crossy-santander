@@ -33,6 +33,7 @@ public abstract class Jugador extends model.Entity {
     private boolean powerUpActive; // Indica si hay un powerup activo
     private int powerUpCount; // Contador de frames que quedan del powerup
     private boolean paused; // indica si el juego esta en pausa o no
+    private int speed = 5;
 
     // ANIMACION
     private int currentFrame; // Frame actual de la animacion del sprite (esta entre 0 y total-1)
@@ -306,5 +307,21 @@ public abstract class Jugador extends model.Entity {
      */
     public int getSpawnY() {
         return spawnY;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void aplicarEmpanada() {
+        lives++;
+    }
+
+    public void aplicarVive100() {
+        speed *= 2;
     }
 }

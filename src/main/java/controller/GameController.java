@@ -21,9 +21,9 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class GameController implements Runnable {
-    GamePanel panel = new GamePanel();
+    //GamePanel panel = new GamePanel();
 
-    private GamePanel panell; // Panel principal de la vista
+    private GamePanel panel; // Panel principal de la vista
     private MainFrame frame; // Ventana principal para ir al gameover
     private volatile boolean enEjecucion = true; // Controla si el bucle esta corriendo
     private ArrayList<Jugador> historial = new ArrayList<Jugador>(); // Historial de jugadores de la sesion
@@ -32,11 +32,9 @@ public class GameController implements Runnable {
      * Constructor
      *
      * @param panel el panel del juego
-     * @param frame la ventana principal
      */
-    public GameController(GamePanel panel, MainFrame frame) {
+    public GameController(GamePanel panel) {
         this.panel = panel;
-        this.frame = frame;
     }
 
     /**

@@ -17,11 +17,11 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         setTitle("Crossy Santander");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
         setSize(1000, 800);
         setVisible(true);
         cardLayout = new CardLayout();
         contenedor = new JPanel(cardLayout);
+        setLocationRelativeTo(null);
         gamePanel = new GamePanel(this);
 
         contenedor.add(new PanelBienvenida(this), "bienvenida");

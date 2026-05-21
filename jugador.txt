@@ -1,2 +1,15 @@
 Nombre: Juan
 Score: 955
+Nombre: omg
+Nombre: omg
+Nombre: o
+Nombre: o
+Nombre: o
+Score: 925
+Nombre: el bosudo
+Score: 840
+Nombre: el bosudo
+Nombre: a
+Score: 970
+Nombre: ay
+Score: 945

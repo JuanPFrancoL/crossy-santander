@@ -1,5 +1,13 @@
 package main.java.model;
 
+/**
+ * Personaje jugable Diego
+ * Hereda de Jugador y define sus sprites propios y la animacion
+ * de recoger items del suelo
+ *
+ * @author Diego, Pablo, Jhoem
+ * @version 1.0
+ */
 public class Diego extends model.Jugador {
     //Posicion inicial
     private static final int SPAWN_X = 200; // Posicion X de aparicion

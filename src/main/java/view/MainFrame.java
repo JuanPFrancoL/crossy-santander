@@ -1,21 +1,41 @@
 package view;
 
-import controller.GameController;
-
 import javax.swing.*;
+import java.awt.*;
 
 public class MainFrame extends JFrame {
-    GamePanel panel = new GamePanel();
+    private GamePanel gamePanel;
+    private JPanel contenedor;
+    private CardLayout cardLayout;
 
     public MainFrame() {
         setTitle("Crossy Santander");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        add(panel);
         setSize(1000, 800);
         setVisible(true);
-        GameController controller = new GameController(panel);
-        Thread hilo = new Thread(controller);
-        hilo.start();
+        cardLayout = new CardLayout();
+        contenedor = new JPanel(cardLayout);
+        gamePanel = new GamePanel();
+
+        contenedor.add(new PanelBienvenida(this), "bienvenida");
+        contenedor.add(new PanelReglas(this), "reglas");
+        contenedor.add(new PanelPersonaje(this, gamePanel), "personaje");
+        contenedor.add(gamePanel, "juego");
+
+        add(contenedor);
+        setVisible(true);
+
+        cardLayout.show(contenedor, "bienvenida");
+    }
+
+    public void mostrarPanel(String nombre) {
+        cardLayout.show(contenedor, nombre);
+
+        // Arranca el hilo solo cuando empieza el juego
+        if (nombre.equals("juego")) {
+            controller.GameController controller = new controller.GameController(gamePanel);
+            new Thread(controller).start();
+        }
     }
 }

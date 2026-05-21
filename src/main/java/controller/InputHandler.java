@@ -1,12 +1,22 @@
 package controller;
 
+import view.GamePanel;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 /**
- * Clase que permite usar teclas para mover el jugador.
- */
+
+ Clase que permite usar teclas para mover el jugador.*/
 public class InputHandler extends KeyAdapter {
+    model.Jhoem jhoem;
+    GamePanel gamePanel;
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         int tecla = e.getKeyCode();
@@ -17,7 +27,10 @@ public class InputHandler extends KeyAdapter {
         } else if (tecla == KeyEvent.VK_UP) {
 
         } else if (tecla == KeyEvent.VK_DOWN) {
-            
+
         }
     }
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
 }

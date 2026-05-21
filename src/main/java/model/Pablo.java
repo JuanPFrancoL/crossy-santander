@@ -51,6 +51,7 @@ public class Pablo extends model.Jugador {
         this.pickUpCounter = 0;
         setDirection(DIR_NONE);
     }
+    
 
     // Logica de movimiento
 

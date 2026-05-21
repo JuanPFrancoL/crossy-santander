@@ -27,16 +27,16 @@ public class Jhoem extends model.Jugador {
      * Cada indice corresponde a una pose especifica
      */
     private static final String[] FRAMES_WALK = {
-            "main/resources/sprites/jhoem/jhoemBackStand.png", // 0
-            "main/resources/sprites/jhoem/jhoemBackWalk1.png", // 1
-            "main/resources/sprites/jhoem/jhoemBackWalk2.png", // 2
-            "main/resources/sprites/jhoem/jhoemStand.png", // 3
-            "main/resources/sprites/jhoem/jhoemStandLeft.png", // 4
-            "main/resources/sprites/jhoem/jhoemStandRight.png", // 5
-            "main/resources/sprites/jhoem/jhoemWalk1.png", // 6
-            "main/resources/sprites/jhoem/jhoemWalk2.png", // 7
-            "main/resources/sprites/jhoem/jhoemWalkLeft1.png", // 8
-            "main/resources/sprites/jhoem/jhoemWalkRight1.png", // 9
+            "sprites/jhoem/jhoemBackStand.png", // 0
+            "sprites/jhoem/jhoemBackWalk1.png", // 1
+            "sprites/jhoem/jhoemBackWalk2.png", // 2
+            "sprites/jhoem/jhoemStand.png", // 3
+            "sprites/jhoem/jhoemStandLeft.png", // 4
+            "sprites/jhoem/jhoemStandRight.png", // 5
+            "sprites/jhoem/jhoemWalk1.png", // 6
+            "sprites/jhoem/jhoemWalk2.png", // 7
+            "sprites/jhoem/jhoemWalkLeft1.png", // 8
+            "sprites/jhoem/jhoemWalkRight1.png", // 9
     };
 
     private static final String SPRITE_TAKING = "main/resources/sprites/jhoem/jhoemTaking.png"; // Sprite agachado al recoger un item del suelo

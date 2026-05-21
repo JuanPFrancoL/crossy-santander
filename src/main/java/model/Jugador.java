@@ -1,6 +1,5 @@
 package main.java.model;
 
-import model.Entity;
 import java.awt.image.BufferedImage;
 
 /**
@@ -307,6 +306,5 @@ public abstract class Jugador extends model.Entity {
      */
     public int getSpawnY() {
         return spawnY;
->>>>>>> 7451ee20403d35a53e44a2fb52c6fc6fefb6d968
     }
 }

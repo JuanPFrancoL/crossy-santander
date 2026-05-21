@@ -1,6 +1,6 @@
 package view;
 
-import main.java.model.Diego;
+import model.Diego;
 import model.Entity;
 import model.Jhoem;
 

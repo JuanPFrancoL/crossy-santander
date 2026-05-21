@@ -1,11 +1,8 @@
 package view;
 
 import controller.InputHandler;
-import model.Arbol;
-import model.Bus;
-import model.Jugador;
-import model.Moto;
-import model.Taxi;
+import controller.SaveManager;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,10 +60,20 @@ public class GamePanel extends JPanel {
     }
 
     public void update() {
+
         for (Moto m : motos) m.update();
         for (Bus b : buses) b.update();
         for (Taxi t : taxis) t.update();
-        if (jugador != null) jugador.update();
+
+        if (jugador != null) {
+            jugador.update();
+
+            if (jugador.getY() > 700 && jugador.isActive()) {
+                SaveManager.guardarScore(jugador.getScore());
+                jugador.setActive(false);
+            }
+        }
+
         repaint();
     }
 
@@ -120,6 +127,7 @@ public class GamePanel extends JPanel {
             g.setColor(Color.white);
             g.drawString("Puntos: " + jugador.getScore(), 20, 30);
         }
+
 
 
     }

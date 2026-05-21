@@ -1,10 +1,6 @@
 package main.java.model;
 
-<<<<<<< HEAD
 import model.Entity;
-
-=======
->>>>>>> 7451ee20403d35a53e44a2fb52c6fc6fefb6d968
 import java.awt.image.BufferedImage;
 
 /**
@@ -16,21 +12,10 @@ import java.awt.image.BufferedImage;
  * Aplica herencia, encapsulamiento y polimorfismo
  *
  * @author Diego, Pablo, Jhoem
- * @version 1.1
+ * @version 1.2
  */
 public abstract class Jugador extends model.Entity {
 
-<<<<<<< HEAD
-    /**
-     * Constructor base que inicializa posicion, sprite y dimensiones
-     *
-     * @param x      Posicion X inicial
-     * @param y      Posicion Y inicial
-     * @param sprite Imagen de la entidad cargada con uploadImage()
-     */
-    public Jugador(int x, int y, BufferedImage sprite) {
-        super(x, y, sprite);
-=======
     // Contantes globales
     public static final int INITIAL_LIVES = 3; // Numero inicial de vidas
     public static final int MAX_HEALTH = 100; // Vida maxima del jugador en %

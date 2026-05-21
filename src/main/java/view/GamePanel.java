@@ -103,7 +103,7 @@ public class GamePanel extends JPanel {
             }
         }
 
-
+        dibujarScore(g2);
     }
 
     private Color carriles = new Color(47, 47, 51);
@@ -123,8 +123,9 @@ public class GamePanel extends JPanel {
         g.fillRect(0, y, 1000, 30);
     }
 
-    public void dibujarPj(Graphics2D g){
-        g.drawImage(getJugador().getSprite(), getJugador().getSpawnX(), getJugador().getSpawnY(), null);
+    public void dibujarScore(Graphics2D g){
+        g.setColor(Color.WHITE);
+        g.drawString("Puntos: " + jugador.getScore(), 20, 30);
     }
 
 }

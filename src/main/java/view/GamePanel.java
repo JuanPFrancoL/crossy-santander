@@ -325,6 +325,7 @@ public class GamePanel extends JPanel {
         return vive100s;
     }
 
+    //reinia todos los valores del personaje
     public void reiniciar() {
         gameOver = false;
         tiempoSegundos = 0;

@@ -1,0 +1,298 @@
+@startuml
+class PanelBienvenida {
+- MainFrame frame
++ <<Create>> PanelBienvenida(MainFrame)
+# void paintComponent(Graphics)
+}
+
+
+class Bus {
+- {static} BufferedImage[] SPRITES_DERECHA
+- {static} BufferedImage[] SPRITES_IZQUIERDA
+- BufferedImage spriteDerecha
+- BufferedImage spriteIzquierda
++ <<Create>> Bus(int,int,int)
++ BufferedImage getSpriteDerecha()
++ void setSpriteDerecha(BufferedImage)
++ BufferedImage getSpriteIzquierda()
++ void setSpriteIzquierda(BufferedImage)
++ void update()
+}
+
+
+class Pablo {
+- {static} int SPAWN_X
+- {static} int SPAWN_Y
+- {static} int SPEED
+- {static} int PICKUP_DURATION
+- boolean pickingUp
+- int pickUpCounter
+- {static} String[] FRAMES_WALK
++ {static} String SPRITE_DOWN
++ <<Create>> Pablo()
++ void update()
++ void updateSprite()
++ void onPowerUpStart()
++ void onPowerUpEnd()
++ void startPickUp()
++ int getSpeed()
++ boolean isPickingUp()
+}
+
+
+class Moto {
+- BufferedImage spriteDerecha
+- BufferedImage spriteIzquierda
+- {static} BufferedImage[] SPRITES_DERECHA
+- {static} BufferedImage[] SPRITES_IZQUIERDA
++ <<Create>> Moto(int,int,int)
++ BufferedImage getSpriteDerecha()
++ void setSpriteDerecha(BufferedImage)
++ BufferedImage getSpriteIzquierda()
++ void setSpriteIzquierda(BufferedImage)
++ void update()
+}
+
+
+class Main {
++ {static} void main(String[])
+}
+
+class GamePanel {
+- List<Moto> motos
+- List<Arbol> arboles
+- List<Bus> buses
+- List<Taxi> taxis
+- Jugador jugador
+- Color carriles
++ <<Create>> GamePanel()
++ void setJugador(Jugador)
++ Jugador getJugador()
++ void update()
+# void paintComponent(Graphics)
++ void dibujarCarril(Graphics2D,int)
++ void dibujarAnden(Graphics2D,int)
++ void dibujarCiclovia(Graphics2D,int)
+}
+
+
+abstract class Jugador {
++ {static} int INITIAL_LIVES
++ {static} int MAX_HEALTH
++ {static} int DAMAGE_VEHICLE
++ {static} int POINTS_POWERUP
++ {static} int POWERUP_DURATION
+- String nombreJugador
+- int lives
+- int score
+- int health
+- boolean immortality
+- int immortalityCount
+- {static} int IMMORTALITY_DURATION
+- boolean powerUpActive
+- int powerUpCount
+- boolean paused
+- int currentFrame
+- int totalFrames
+- int frameCounter
+- {static} int FRAME_SPEED
+- int spawnX
+- int spawnY
++ <<Create>> Jugador(int,int,BufferedImage,int)
++ void update()
++ void receiveDamage(int)
++ void addScore(int)
++ void addLife()
++ void activatePowerUp()
++ void resetPosition()
++ void resetAll()
++ void togglePause()
++ {abstract}void updateSprite()
++ {abstract}void onPowerUpStart()
++ {abstract}void onPowerUpEnd()
++ String getNombreJugador()
++ void setNombreJugador(String)
++ int getLives()
++ void setLives(int)
++ int getScore()
++ void setScore(int)
++ int getHealth()
++ void setHealth(int)
++ boolean isImmortality()
++ boolean isPowerUpActive()
++ int getPowerUpCount()
++ boolean isPaused()
++ void setPaused(boolean)
++ int getCurrentFrame()
++ void setCurrentFrame(int)
++ int getTotalFrames()
++ int getSpawnX()
++ int getSpawnY()
+}
+
+
+class GameController {
+~ GamePanel panel
++ <<Create>> GameController(GamePanel)
++ void run()
+}
+
+
+class Arbol {
++ <<Create>> Arbol(int,int)
++ void update()
+}
+
+class Diego {
+- {static} int SPAWN_X
+- {static} int SPAWN_Y
+- {static} int SPEED
+- boolean pickingUp
+- int pickUpCounter
+- {static} int PICKUP_DURATION
+- {static} String[] FRAMES_WALK
+- {static} String SPRITE_DOWN
++ <<Create>> Diego()
++ void update()
++ void updateSprite()
++ void onPowerUpStart()
++ void onPowerUpEnd()
++ void startPickUp()
++ int getSpeed()
++ boolean isPickingUp()
+}
+
+
+class InputHandler {
+~ model.Jhoem jhoem
+~ GamePanel gamePanel
++ void keyTyped(KeyEvent)
++ void keyPressed(KeyEvent)
++ void keyReleased(KeyEvent)
+}
+
+
+abstract class Entity {
++ {static} int DIR_NONE
++ {static} int DIR_LEFT
++ {static} int DIR_UP
++ {static} int DIR_RIGHT
++ {static} int DIR_DOWN
+- int x
+- int y
+- int width
+- int height
+- BufferedImage sprite
+- boolean active
+- int direction
++ <<Create>> Entity(int,int,BufferedImage)
++ {abstract}void update()
++ Rectangle getHitBox()
++ Rectangle getHitBox(int,int)
++ int calculateDx()
++ int calculateDy()
++ {static} BufferedImage uploadImage(String)
++ int getX()
++ void setX(int)
++ int getY()
++ void setY(int)
++ int getWidth()
++ void setWidth(int)
++ int getHeight()
++ void setHeight(int)
++ BufferedImage getSprite()
++ void setSprite(BufferedImage)
++ boolean isActive()
++ void setActive(boolean)
++ int getDirection()
++ void setDirection(int)
+}
+
+
+class Vehicle {
+# int speed
++ <<Create>> Vehicle(int,int,BufferedImage,int)
++ int getSpeed()
++ void setSpeed(int)
++ void update()
+}
+
+
+class MainFrame {
+- GamePanel gamePanel
+- JPanel contenedor
+- CardLayout cardLayout
++ <<Create>> MainFrame()
++ void mostrarPanel(String)
+}
+
+
+class PanelPersonaje {
+- MainFrame frame
+- GamePanel gamePanel
+- BufferedImage imgP1
+- BufferedImage imgP2
+- BufferedImage imgP3
++ <<Create>> PanelPersonaje(MainFrame,GamePanel)
+# void paintComponent(Graphics)
+}
+
+
+class Jhoem {
+- {static} int SPAWN_X
+- {static} int SPAWN_Y
+- {static} int SPEED
+- {static} int PICKUP_DURATION
+- boolean pickingUp
+- int pickUpCounter
+- {static} String[] FRAMES_WALK
+- {static} String SPRITE_TAKING
++ <<Create>> Jhoem()
++ void update()
++ void updateSprite()
++ void onPowerUpStart()
++ void onPowerUpEnd()
++ void startPickUp()
++ int getSpeed()
++ boolean isPickingUp()
+}
+
+
+class PanelReglas {
+- MainFrame frame
++ <<Create>> PanelReglas(MainFrame)
+# void paintComponent(Graphics)
+}
+
+
+class Taxi {
+- BufferedImage spriteDerecha
+- BufferedImage spriteIzquierda
++ <<Create>> Taxi(int,int,int)
++ BufferedImage getSpriteDerecha()
++ void setSpriteDerecha(BufferedImage)
++ BufferedImage getSpriteIzquierda()
++ void setSpriteIzquierda(BufferedImage)
++ void update()
+}
+
+
+
+
+JPanel <|-- PanelBienvenida
+Vehicle <|-- Bus
+Jugador <|-- Pablo
+Vehicle <|-- Moto
+JPanel <|-- GamePanel
+Entity <|-- Jugador
+Runnable <|.. GameController
+Entity <|-- Arbol
+Jugador <|-- Diego
+KeyAdapter <|-- InputHandler
+Entity <|-- Vehicle
+JFrame <|-- MainFrame
+JPanel <|-- PanelPersonaje
+Jugador <|-- Jhoem
+JPanel <|-- PanelReglas
+Vehicle <|-- Taxi
+@enduml

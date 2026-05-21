@@ -13,6 +13,7 @@ public class InputHandler extends KeyAdapter {
     private Jugador jugador;
     private GamePanel gamePanel;
 
+    //Constructor
     public InputHandler(Jugador jugador, GamePanel gamePanel) {
         this.jugador = jugador;
         this.gamePanel = gamePanel;

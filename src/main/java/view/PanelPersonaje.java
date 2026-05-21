@@ -21,7 +21,7 @@ public class PanelPersonaje extends JPanel {
     public PanelPersonaje(MainFrame frame, GamePanel gamePanel) {
         this.frame = frame;
         this.gamePanel = gamePanel;
-        setBackground(new Color(30, 30, 30));
+        setBackground(new Color(36, 0, 49));
 
         imgP1 = Entity.uploadImage("sprites/jhoem/jhoemStand.png");
         imgP2 = Entity.uploadImage("sprites/diego/diegoStand.png");
@@ -52,7 +52,7 @@ public class PanelPersonaje extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.setColor(Color.WHITE);
+        g2.setColor(new Color(159, 29, 224));
         g2.setFont(new Font("Arial", Font.BOLD, 48));
         g2.drawString("Elige tu personaje", 290, 100);
 
@@ -60,7 +60,7 @@ public class PanelPersonaje extends JPanel {
         if (imgP2 != null) g2.drawImage(imgP2, 420, 300, 150, 150, null);
         if (imgP3 != null) g2.drawImage(imgP3, 740, 300, 150, 150, null);
 
-        g2.setColor(Color.WHITE);
+        g2.setColor(new Color(123, 125, 255));
         g2.setFont(new Font("Arial", Font.PLAIN, 22));
         g2.drawString("Personaje 1", 110, 480);
         g2.drawString("Personaje 2", 430, 480);

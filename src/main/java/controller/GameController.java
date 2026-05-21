@@ -16,6 +16,7 @@ import java.awt.*;
 public class GameController implements Runnable {
     private GamePanel panel;
     private boolean enEjecucion = true;
+    private Jugador jugador;
 
     public GameController(GamePanel panel) {
         this.panel = panel;
@@ -111,4 +112,5 @@ public class GameController implements Runnable {
     public void detener() {
         enEjecucion = false;
     }
+
 }

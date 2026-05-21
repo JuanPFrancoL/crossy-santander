@@ -2,7 +2,13 @@ package view;
 
 import controller.InputHandler;
 import controller.SaveManager;
-import model.*;
+import model.Arbol;
+import model.Bus;
+import model.Empanada;
+import model.Jugador;
+import model.Moto;
+import model.Taxi;
+import model.Vive100;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +21,12 @@ public class GamePanel extends JPanel {
     private List<Bus> buses;
     private List<Taxi> taxis;
     private Jugador jugador;
+    private MainFrame frame;
+    private int tiempoSegundos = 0;
+    private int frameCount = 0;
+    private String nombreJugador;
+    private Empanada empanada;
+    private Vive100 vive100;
 
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
@@ -129,7 +141,6 @@ public class GamePanel extends JPanel {
         }
 
 
-
     }
 
     private Color carriles = new Color(47, 47, 51);
@@ -149,6 +160,88 @@ public class GamePanel extends JPanel {
         g.fillRect(0, y, 1000, 30);
     }
 
+    public void reiniciar() {
+        tiempoSegundos = 0;
+        frameCount = 0;
+        jugador = null;
+        // Reiniciar vehículos
+        buses.clear();
+        motos.clear();
+        taxis.clear();
+        // Volver a inicializarlos
+        buses.add(new Bus(0, 46, 3));
+        buses.add(new Bus(50, 222, -3));
+        buses.add(new Bus(600, 428, 3));
+        buses.add(new Bus(200, 530, -3));
+        motos.add(new Moto(800, 70, 5));
+        motos.add(new Moto(500, 245, -5));
+        motos.add(new Moto(640, 545, -5));
+        taxis.add(new Taxi(400, 134, 3));
+        taxis.add(new Taxi(530, 632, -4));
+    }
 
+    public List<Moto> getMotos() {
+        return motos;
+    }
+
+    public void setMotos(List<Moto> motos) {
+        this.motos = motos;
+    }
+
+    public List<Arbol> getArboles() {
+        return arboles;
+    }
+
+    public void setArboles(List<Arbol> arboles) {
+        this.arboles = arboles;
+    }
+
+    public List<Bus> getBuses() {
+        return buses;
+    }
+
+    public void setBuses(List<Bus> buses) {
+        this.buses = buses;
+    }
+
+    public List<Taxi> getTaxis() {
+        return taxis;
+    }
+
+    public void setTaxis(List<Taxi> taxis) {
+        this.taxis = taxis;
+    }
+
+    public String getNombreJugador() {
+        return nombreJugador;
+    }
+
+    public void setNombreJugador(String nombreJugador) {
+        this.nombreJugador = nombreJugador;
+    }
+
+    public Empanada getEmpanada() {
+        return empanada;
+    }
+
+    public void setEmpanada(Empanada empanada) {
+        this.empanada = empanada;
+    }
+
+    public Vive100 getVive100() {
+        return vive100;
+    }
+
+    public void setVive100(Vive100 vive100) {
+        this.vive100 = vive100;
+    }
+
+    public MainFrame getFrame() {
+        return frame;
+    }
+
+    public int getTiempoSegundos() {
+        return tiempoSegundos;
+    }
 
 }

@@ -8,6 +8,7 @@ public class MainFrame extends JFrame {
     private JPanel contenedor;
     private CardLayout cardLayout;
     private String nombreJugador;
+    private PanelGameOver panelGameOver;
 
     public MainFrame() {
         setTitle("Crossy Santander");
@@ -29,6 +30,8 @@ public class MainFrame extends JFrame {
         setVisible(true);
 
         cardLayout.show(contenedor, "bienvenida");
+        panelGameOver = new PanelGameOver(this);
+        contenedor.add(panelGameOver, "gameover");
     }
 
     public void mostrarPanel(String nombre) {
@@ -49,5 +52,15 @@ public class MainFrame extends JFrame {
 
     public String getNombreJugador() {
         return nombreJugador;
+    }
+
+    public void mostrarGameOver(String nombre, int puntaje, int tiempo) {
+        panelGameOver.setDatos(nombre, puntaje, tiempo);
+        mostrarPanel("gameover");
+    }
+
+    public void reiniciarJuego() {
+        gamePanel.reiniciar();
+        mostrarPanel("usuario"); // vuelve al ingreso de nombre
     }
 }

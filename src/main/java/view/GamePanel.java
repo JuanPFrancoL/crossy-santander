@@ -18,6 +18,10 @@ public class GamePanel extends JPanel {
     private List<Taxi> taxis;
     private Jugador jugador;
 
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
+    }
+
 
     public GamePanel() {
         //Arboles, son estaticos

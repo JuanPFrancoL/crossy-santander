@@ -1,13 +1,8 @@
 package view;
 
 import controller.InputHandler;
-import model.Arbol;
-import model.Bus;
-import model.Empanada;
-import model.Jugador;
-import model.Moto;
-import model.Taxi;
-import model.Vive100;
+import controller.SaveManager;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,9 +15,6 @@ public class GamePanel extends JPanel {
     private List<Bus> buses;
     private List<Taxi> taxis;
     private Jugador jugador;
-    private String nombreJugador;
-    private Empanada empanada;
-    private Vive100 vive100;
 
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
@@ -68,10 +60,20 @@ public class GamePanel extends JPanel {
     }
 
     public void update() {
+
         for (Moto m : motos) m.update();
         for (Bus b : buses) b.update();
         for (Taxi t : taxis) t.update();
-        if (jugador != null) jugador.update();
+
+        if (jugador != null) {
+            jugador.update();
+
+            if (jugador.getY() > 700 && jugador.isActive()) {
+                SaveManager.guardarScore(jugador.getScore());
+                jugador.setActive(false);
+            }
+        }
+
         repaint();
     }
 
@@ -120,6 +122,12 @@ public class GamePanel extends JPanel {
         if (jugador != null && jugador.getSprite() != null) {
             g2.drawImage(jugador.getSprite(), jugador.getX(), jugador.getY(), 50, 70, null);
         }
+        if (jugador != null) {
+
+            g.setColor(Color.white);
+            g.drawString("Puntos: " + jugador.getScore(), 20, 30);
+        }
+
 
 
     }
@@ -141,63 +149,6 @@ public class GamePanel extends JPanel {
         g.fillRect(0, y, 1000, 30);
     }
 
-    //Gettters y setters
-    public void setNombreJugador(String nombre) {
-        this.nombreJugador = nombre;
-        if (jugador != null) {
-            jugador.setNombreJugador(nombre);
-        }
-    }
 
-    public List<Moto> getMotos() {
-        return motos;
-    }
 
-    public void setMotos(List<Moto> motos) {
-        this.motos = motos;
-    }
-
-    public List<Arbol> getArboles() {
-        return arboles;
-    }
-
-    public void setArboles(List<Arbol> arboles) {
-        this.arboles = arboles;
-    }
-
-    public List<Bus> getBuses() {
-        return buses;
-    }
-
-    public void setBuses(List<Bus> buses) {
-        this.buses = buses;
-    }
-
-    public List<Taxi> getTaxis() {
-        return taxis;
-    }
-
-    public void setTaxis(List<Taxi> taxis) {
-        this.taxis = taxis;
-    }
-
-    public String getNombreJugador() {
-        return nombreJugador;
-    }
-
-    public Empanada getEmpanada() {
-        return empanada;
-    }
-
-    public void setEmpanada(Empanada empanada) {
-        this.empanada = empanada;
-    }
-
-    public Vive100 getVive100() {
-        return vive100;
-    }
-
-    public void setVive100(Vive100 vive100) {
-        this.vive100 = vive100;
-    }
 }

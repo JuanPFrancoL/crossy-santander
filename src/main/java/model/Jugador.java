@@ -17,8 +17,8 @@ public abstract class Jugador extends model.Entity {
 
     // Contantes globales
     public static final int INITIAL_LIVES = 3; // Numero inicial de vidas
-    public static final int MAX_HEALTH = 100; // Vida maxima del jugador en %
-    public static final int DAMAGE_VEHICLE = 100; // Daño recibido al chocar con un vehiculo enemigo
+    public static final int MAX_HEALTH = 5; // Vida maxima del jugador en %
+    public static final int DAMAGE_VEHICLE = 1; // Daño recibido al chocar con un vehiculo enemigo
     public static final int POINTS_POWERUP = 50; // Puntos ganados al recoger un poder
     public static final int POWERUP_DURATION = 180; // Duracion del powerup en frames (3 segundos a 60FPS)
 
@@ -26,6 +26,10 @@ public abstract class Jugador extends model.Entity {
     private String nombreJugador; // Nombre ingresado por el jugador en la interfaz
     private int lives; // Numero de vidas restantes
     private int score; // Puntuacion acumulada
+    private static final int iScore = 1000;
+    private static final int scorest = 5; // puntos que pierde
+    private static final int scoreTime = 60; // cada 60 frames = 1 segundo
+    private int scoreTimer;
     private int health;
     private boolean immortality; // Indica si el jugador esta en estado inmortal despues de recibir daño
     private int immortalityCount; // Contador de frames de la inmortalidad (parpadeo tras daño)
@@ -59,7 +63,8 @@ public abstract class Jugador extends model.Entity {
         this.spawnX = x;
         this.spawnY = y;
         this.lives = lives;
-        this.score = score;
+        this.score = iScore;
+        this.scoreTimer = 0;
         this.health = health;
         this.immortality = immortality;
         this.immortalityCount = immortalityCount;
@@ -78,8 +83,24 @@ public abstract class Jugador extends model.Entity {
      * Actualiza los contadores de inmortalidad y powerup en cada frame
      * Las subclases deben llamar a update() para mantener dicha logica
      */
+
+
     @Override
     public void update() {
+        // SISTEMA DE PUNTOS POR TIEMPO
+        scoreTimer++;
+
+        if (scoreTimer >= scoreTime) {
+            scoreTimer = 0;
+
+            if (score > 0) {
+                score -= scorest;
+
+                if (score < 0) {
+                    score = 0;
+                }
+            }
+        }
         // Descontar inmortalidad
         if (immortality) {
             immortalityCount--;
@@ -179,6 +200,8 @@ public abstract class Jugador extends model.Entity {
      * Se llama al iniciar una nueva partida
      */
     public void resetAll() {
+        score = iScore;
+        scoreTimer = 0;
         resetPosition();
         lives = INITIAL_LIVES;
         score = 0;

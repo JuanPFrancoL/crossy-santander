@@ -10,7 +10,7 @@ public class PanelBienvenida extends JPanel {
 
     public PanelBienvenida(MainFrame frame) {
         this.frame = frame;
-        setBackground(new Color(30, 30, 30));
+        setBackground(new Color(36, 0, 49));
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -25,12 +25,12 @@ public class PanelBienvenida extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.setColor(new Color(83, 147, 49));
-        g2.setFont(new Font("Arial", Font.BOLD, 72));
-        g2.drawString("Crossing Santander", 100, 250);
+        g2.setColor(new Color(108, 49, 147));
+        g2.setFont(new Font("Georgia", Font.BOLD, 72));
+        g2.drawString("Crossing Santander", 140, 250);
 
-        g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Arial", Font.PLAIN, 28));
+        g2.setColor(new Color(222, 167, 255));
+        g2.setFont(new Font("Tahoma", Font.PLAIN, 28));
         g2.drawString("Haz clic para continuar", 350, 500);
     }
 }

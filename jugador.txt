@@ -1,23 +1,2 @@
-
-Nombre: Si
 Nombre: Juan
-Nombre: juan
-Nombre: juan
-Score: 925
-Nombre: juan
-Nombre: juan
-Nombre: Juan
-Nombre: j
-Nombre: k
-Nombre: k
-Nombre: k
-Nombre: h
-Nombre: j
-Nombre: k
-Nombre: k
-Nombre: g
-Nombre: d
-Nombre: d
-Nombre: d
-Nombre: s
-Score: 865
+Score: 955

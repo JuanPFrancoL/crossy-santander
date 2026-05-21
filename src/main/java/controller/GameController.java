@@ -8,6 +8,10 @@ import view.GamePanel;
 public class GameController implements Runnable {
     GamePanel panel = new GamePanel();
 
+    public GameController(GamePanel panel) {
+        this.panel = panel;
+    }
+
     @Override
     public void run() {
         while (true) {

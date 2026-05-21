@@ -17,8 +17,8 @@ public abstract class Jugador extends model.Entity {
 
     // Contantes globales
     public static final int INITIAL_LIVES = 3; // Numero inicial de vidas
-    public static final int MAX_HEALTH = 5; // Vida maxima del jugador en %
-    public static final int DAMAGE_VEHICLE = 1; // Daño recibido al chocar con un vehiculo enemigo
+    public static final int MAX_HEALTH = 100; // Vida maxima del jugador en %
+    public static final int DAMAGE_VEHICLE = 100; // Daño recibido al chocar con un vehiculo enemigo
     public static final int POINTS_POWERUP = 50; // Puntos ganados al recoger un poder
     public static final int POWERUP_DURATION = 180; // Duracion del powerup en frames (3 segundos a 60FPS)
 
@@ -62,15 +62,15 @@ public abstract class Jugador extends model.Entity {
         super(x, y, sprite);
         this.spawnX = x;
         this.spawnY = y;
-        this.lives = lives;
+        this.lives = INITIAL_LIVES;
         this.score = iScore;
         this.scoreTimer = 0;
-        this.health = health;
-        this.immortality = immortality;
-        this.immortalityCount = immortalityCount;
-        this.powerUpActive = powerUpActive;
-        this.powerUpCount = powerUpCount;
-        this.paused = paused;
+        this.health = MAX_HEALTH;
+        this.immortality = false;
+        this.immortalityCount = 0;
+        this.powerUpActive = false;
+        this.powerUpCount = 0;
+        this.paused = false;
         this.currentFrame = 0;
         this.totalFrames = totalFrames;
         this.frameCounter = 0;
@@ -83,8 +83,6 @@ public abstract class Jugador extends model.Entity {
      * Actualiza los contadores de inmortalidad y powerup en cada frame
      * Las subclases deben llamar a update() para mantener dicha logica
      */
-
-
     @Override
     public void update() {
         // SISTEMA DE PUNTOS POR TIEMPO

@@ -13,6 +13,7 @@ import model.Vive100;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +33,17 @@ public class GamePanel extends JPanel {
     private List<Vive100> vive100s;
     private Jugador jugador;
     private String nombreJugador;
+    private MainFrame frame;
+    private int tiempoSegundos = 0;
+    private int frameCount = 0;
+    private boolean gameOver = false;
 
     /**
      * Constructor del panel
      * Inicializa y posiciona todos los vehiculos, arboles e items del mapa
      */
-    public GamePanel() {
+    public GamePanel(MainFrame frame) {
+        this.frame = frame;
         //Arboles, son estaticos
         arboles = new ArrayList<>();
         arboles.add(new Arbol(100, 355));
@@ -84,7 +90,12 @@ public class GamePanel extends JPanel {
      */
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
+
+        for (KeyListener kl : getKeyListeners()) {
+            removeKeyListener(kl);
+        }
         addKeyListener(new InputHandler(jugador, this));
+
         setFocusable(true);
         requestFocus();
     }
@@ -101,6 +112,15 @@ public class GamePanel extends JPanel {
      */
     public void update() {
 
+        if (gameOver) return;
+
+        frameCount++;
+
+        if (frameCount >= 60) {
+            tiempoSegundos++;
+            frameCount = 0;
+        }
+
         for (Moto m : motos) m.update();
         for (Bus b : buses) b.update();
         for (Taxi t : taxis) t.update();
@@ -109,8 +129,18 @@ public class GamePanel extends JPanel {
             jugador.update();
 
             if (jugador.getY() > 700 && jugador.isActive()) {
+
+                gameOver = true;
+
                 SaveManager.guardarScore(jugador.getScore());
-                jugador.setActive(false);
+
+                frame.mostrarGameOver(
+                        jugador.getNombreJugador(),
+                        jugador.getScore(),
+                        tiempoSegundos
+                );
+
+                return;
             }
         }
 
@@ -293,5 +323,30 @@ public class GamePanel extends JPanel {
 
     public List<Vive100> getVive100s() {
         return vive100s;
+    }
+
+    //reinia todos los valores del personaje
+    public void reiniciar() {
+        gameOver = false;
+        tiempoSegundos = 0;
+        frameCount = 0;
+        jugador = null;
+        buses.clear();
+        motos.clear();
+        taxis.clear();
+        empanadas.clear();
+        vive100s.clear();
+        buses.add(new Bus(0, 46, 3));
+        buses.add(new Bus(50, 222, -3));
+        buses.add(new Bus(600, 428, 3));
+        buses.add(new Bus(200, 530, -3));
+        motos.add(new Moto(800, 70, 5));
+        motos.add(new Moto(500, 245, -5));
+        motos.add(new Moto(640, 545, -5));
+        taxis.add(new Taxi(400, 134, 3));
+        taxis.add(new Taxi(530, 632, -4));
+        empanadas.add(new Empanada(200, 380, Entity.uploadImage("sprites/features/empanada.png")));
+        empanadas.add(new Empanada(600, 380, Entity.uploadImage("sprites/features/empanada.png")));
+        vive100s.add(new Vive100(400, 380, Entity.uploadImage("sprites/features/vive100.png")));
     }
 }

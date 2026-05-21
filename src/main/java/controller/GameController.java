@@ -9,7 +9,12 @@ import model.Vive100;
 import view.GamePanel;
 import view.MainFrame;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.*;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +32,9 @@ public class GameController implements Runnable {
     private MainFrame frame; // Ventana principal para ir al gameover
     private volatile boolean enEjecucion = true; // Controla si el bucle esta corriendo
     private ArrayList<Jugador> historial = new ArrayList<Jugador>(); // Historial de jugadores de la sesion
+
+    private Clip choque;
+    private Clip musica;
 
     /**
      * Constructor
@@ -136,5 +144,49 @@ public class GameController implements Runnable {
      */
     public void detener() {
         enEjecucion = false;
+    }
+
+    /**
+     * Carga un archivo .wav desde /resources/sounds/ y devuelve un Clip listo para usar.
+     */
+    private Clip cargarSonido(String archivo) {
+        try {
+            InputStream is = getClass().getResourceAsStream("/sounds/" + archivo);
+            if (is == null) {
+                System.err.println("Sonido no encontrado: " + archivo);
+                return null;
+            }
+            BufferedInputStream bis = new BufferedInputStream(is);
+            AudioInputStream ais = AudioSystem.getAudioInputStream(bis);
+            Clip clip = AudioSystem.getClip();
+            clip.open(ais);
+            return clip;
+        } catch (Exception e) {
+            System.err.println("Error cargando sonido: " + archivo);
+            return null;
+        }
+    }
+
+    /**
+     * Reproduce un clip desde el inicio. Si ya sonaba, lo reinicia.
+     */
+    private void reproducirSonido(Clip clip) {
+        if (clip == null) return;
+        if (clip.isRunning()) clip.stop();
+        clip.setFramePosition(0);
+        clip.start();
+    }
+
+    /**
+     * Detiene y cierra todos los clips de audio.
+     */
+    private void cerrarAudio() {
+        Clip[] todos = {choque, musica};
+        for (int i = 0; i < todos.length; i++) {
+            if (todos[i] != null) {
+                if (todos[i].isRunning()) todos[i].stop();
+                todos[i].close();
+            }
+        }
     }
 }

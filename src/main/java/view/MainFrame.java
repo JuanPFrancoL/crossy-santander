@@ -1,5 +1,7 @@
 package view;
 
+import controller.GameController;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,6 +11,8 @@ public class MainFrame extends JFrame {
     private CardLayout cardLayout;
     private String nombreJugador;
     private PanelGameOver panelGameOver;
+    private Thread gameThread;
+    private GameController controller;
 
     public MainFrame() {
         setTitle("Crossy Santander");
@@ -18,7 +22,7 @@ public class MainFrame extends JFrame {
         setVisible(true);
         cardLayout = new CardLayout();
         contenedor = new JPanel(cardLayout);
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(this);
 
         contenedor.add(new PanelBienvenida(this), "bienvenida");
         contenedor.add(new PanelReglas(this), "reglas");
@@ -39,9 +43,17 @@ public class MainFrame extends JFrame {
 
         // Arranca el hilo solo cuando empieza el juego
         if (nombre.equals("juego")) {
+
             gamePanel.requestFocusInWindow();
-            controller.GameController controller = new controller.GameController(gamePanel);
-            new Thread(controller).start();
+
+            if (gameThread == null || !gameThread.isAlive()) {
+
+                controller = new GameController(gamePanel);
+
+                gameThread = new Thread(controller);
+
+                gameThread.start();
+            }
         }
     }
 

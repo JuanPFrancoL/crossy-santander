@@ -7,8 +7,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 /**
- * Clase que permite usar teclas para mover el jugador.
- */
+
+ Clase que permite usar teclas para mover el jugador.*/
 public class InputHandler extends KeyAdapter {
     private Jugador jugador;
     private GamePanel gamePanel;

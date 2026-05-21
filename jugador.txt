@@ -1,2 +1,7 @@
 
 Nombre: Si
+Nombre: ada
+Nombre: ajhjas
+Score: 930
+Nombre: ajshjsa
+Score: 945

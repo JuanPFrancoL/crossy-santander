@@ -11,8 +11,8 @@ package model;
 
 public class Jhoem extends Jugador {
     // Posicion inicial
-    private static final int SPAWN_X = 200; // Posicion X de aparicion de Jhoem
-    private static final int SPAWN_Y = 20; // Posicion Y de aparicion de Jhoem
+    private static final int SPAWN_X = 400; // Posicion X de aparicion de Jhoem
+    private static final int SPAWN_Y = -15; // Posicion Y de aparicion de Jhoem
     // Movimiento
     private static final int SPEED = 3; // Velocidad de movimiento en px por frame
 

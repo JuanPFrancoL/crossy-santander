@@ -10,8 +10,8 @@ package model;
  */
 public class Pablo extends Jugador {
     // Posicion inicial
-    private static final int SPAWN_X = 200; // Posicion X de aparicion
-    private static final int SPAWN_Y = 20; // Posicion Y de aparicion
+    private static final int SPAWN_X = 400; // Posicion X de aparicion
+    private static final int SPAWN_Y = -15; // Posicion Y de aparicion
 
     // Movimiento
     private static final int SPEED = 3; // Velocidad de movimiento en px por frame

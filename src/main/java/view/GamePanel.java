@@ -3,9 +3,11 @@ package view;
 import controller.InputHandler;
 import model.Arbol;
 import model.Bus;
+import model.Empanada;
 import model.Jugador;
 import model.Moto;
 import model.Taxi;
+import model.Vive100;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +21,8 @@ public class GamePanel extends JPanel {
     private List<Taxi> taxis;
     private Jugador jugador;
     private String nombreJugador;
+    private Empanada empanada;
+    private Vive100 vive100;
 
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
@@ -137,6 +141,7 @@ public class GamePanel extends JPanel {
         g.fillRect(0, y, 1000, 30);
     }
 
+    //Gettters y setters
     public void setNombreJugador(String nombre) {
         this.nombreJugador = nombre;
         if (jugador != null) {
@@ -144,5 +149,55 @@ public class GamePanel extends JPanel {
         }
     }
 
+    public List<Moto> getMotos() {
+        return motos;
+    }
 
+    public void setMotos(List<Moto> motos) {
+        this.motos = motos;
+    }
+
+    public List<Arbol> getArboles() {
+        return arboles;
+    }
+
+    public void setArboles(List<Arbol> arboles) {
+        this.arboles = arboles;
+    }
+
+    public List<Bus> getBuses() {
+        return buses;
+    }
+
+    public void setBuses(List<Bus> buses) {
+        this.buses = buses;
+    }
+
+    public List<Taxi> getTaxis() {
+        return taxis;
+    }
+
+    public void setTaxis(List<Taxi> taxis) {
+        this.taxis = taxis;
+    }
+
+    public String getNombreJugador() {
+        return nombreJugador;
+    }
+
+    public Empanada getEmpanada() {
+        return empanada;
+    }
+
+    public void setEmpanada(Empanada empanada) {
+        this.empanada = empanada;
+    }
+
+    public Vive100 getVive100() {
+        return vive100;
+    }
+
+    public void setVive100(Vive100 vive100) {
+        this.vive100 = vive100;
+    }
 }

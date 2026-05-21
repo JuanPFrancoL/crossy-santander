@@ -41,6 +41,13 @@ public class GamePanel extends JPanel {
         taxis.add(new Taxi(500, 545, 4));
     }
 
+    public void update() {
+        for (Bus b : buses) b.update();
+        for (Moto m : motos) m.update();
+        for (Taxi t : taxis) t.update();
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

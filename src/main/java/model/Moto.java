@@ -17,7 +17,7 @@ public class Moto extends Vehicle {
             uploadImage("sprites/cb/cbLeft.png")
     };
 
-    public Moto(int x, int y, BufferedImage sprite, int speed) {
+    public Moto(int x, int y, int speed) {
         super(x, y, null, speed);
         int indice = (int) (Math.random() * SPRITES_DERECHA.length);
         setSpriteDerecha(SPRITES_DERECHA[indice]);

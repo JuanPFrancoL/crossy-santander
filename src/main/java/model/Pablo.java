@@ -1,4 +1,4 @@
-package main.java.model;
+package model;
 
 /**
  * Personaje jugable Pablo
@@ -8,7 +8,7 @@ package main.java.model;
  * @author Diego, Pablo, Jhoem
  * @version 1.0
  */
-public class Pablo extends model.Jugador {
+public class Pablo extends Jugador {
     // Posicion inicial
     private static final int SPAWN_X = 200; // Posicion X de aparicion
     private static final int SPAWN_Y = 20; // Posicion Y de aparicion
@@ -51,7 +51,7 @@ public class Pablo extends model.Jugador {
         this.pickUpCounter = 0;
         setDirection(DIR_NONE);
     }
-    
+
 
     // Logica de movimiento
 

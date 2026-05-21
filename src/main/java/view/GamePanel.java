@@ -1,5 +1,6 @@
 package view;
 
+import controller.InputHandler;
 import model.Arbol;
 import model.Bus;
 import model.Jugador;
@@ -17,10 +18,15 @@ public class GamePanel extends JPanel {
     private List<Bus> buses;
     private List<Taxi> taxis;
     private Jugador jugador;
+    private String nombreJugador;
 
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
+        addKeyListener(new InputHandler(jugador, this));
+        setFocusable(true);
+        requestFocus();
     }
+
     public Jugador getJugador() {
         return jugador;
     }
@@ -52,12 +58,16 @@ public class GamePanel extends JPanel {
         taxis = new ArrayList<>();
         taxis.add(new Taxi(400, 134, 3));
         taxis.add(new Taxi(530, 632, -4));
+
+        setFocusable(true);
+        requestFocus();
     }
 
     public void update() {
         for (Moto m : motos) m.update();
         for (Bus b : buses) b.update();
         for (Taxi t : taxis) t.update();
+        if (jugador != null) jugador.update();
         repaint();
     }
 
@@ -103,6 +113,10 @@ public class GamePanel extends JPanel {
             }
         }
 
+        if (jugador != null && jugador.getSprite() != null) {
+            g2.drawImage(jugador.getSprite(), jugador.getX(), jugador.getY(), 50, 70, null);
+        }
+
 
     }
 
@@ -121,6 +135,13 @@ public class GamePanel extends JPanel {
     public void dibujarCiclovia(Graphics2D g, int y) {
         g.setColor(carriles);
         g.fillRect(0, y, 1000, 30);
+    }
+
+    public void setNombreJugador(String nombre) {
+        this.nombreJugador = nombre;
+        if (jugador != null) {
+            jugador.setNombreJugador(nombre);
+        }
     }
 
 

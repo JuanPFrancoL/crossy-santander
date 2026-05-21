@@ -19,7 +19,7 @@ public class PanelReglas extends JPanel {
                 int y = e.getY();
                 // clic en botón continuar
                 if (x >= 400 && x <= 600 && y >= 600 && y <= 650) {
-                    frame.mostrarPanel("personaje");
+                    frame.mostrarPanel("usuario");
                 }
             }
         });

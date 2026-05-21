@@ -1,8 +1,9 @@
 package view;
 
-import main.java.model.Diego;
+import model.Diego;
 import model.Entity;
 import model.Jhoem;
+import model.Pablo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +41,7 @@ public class PanelPersonaje extends JPanel {
                     gamePanel.setJugador(new Diego());
                     frame.mostrarPanel("juego");
                 } else if (x >= 740 && x <= 890 && y >= 300 && y <= 450) {
-                    //gamePanel.setJugador(new Pablo());
+                    gamePanel.setJugador(new Pablo());
                     frame.mostrarPanel("juego");
                 }
             }

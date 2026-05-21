@@ -1,6 +1,4 @@
-package main.java.model;
-
-import model.Jugador;
+package model;
 
 /**
  * Personaje jugable Pablo

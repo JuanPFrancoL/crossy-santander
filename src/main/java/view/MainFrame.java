@@ -1,5 +1,7 @@
 package view;
 
+import controller.GameController;
+
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
@@ -12,5 +14,8 @@ public class MainFrame extends JFrame {
         add(panel);
         setSize(1000, 800);
         setVisible(true);
+        GameController controller = new GameController(panel);
+        Thread hilo = new Thread(controller);
+        hilo.start();
     }
 }

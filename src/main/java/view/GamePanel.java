@@ -35,6 +35,7 @@ public class GamePanel extends JPanel {
 
         // Motos
         motos = new ArrayList<>();
+        motos.add(new Moto(800, 70, 5));
         motos.add(new Moto(500, 245, -5));
         motos.add(new Moto(640, 545, -5));
 

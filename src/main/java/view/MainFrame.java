@@ -7,6 +7,7 @@ public class MainFrame extends JFrame {
     private GamePanel gamePanel;
     private JPanel contenedor;
     private CardLayout cardLayout;
+    private String nombreJugador;
 
     public MainFrame() {
         setTitle("Crossy Santander");
@@ -22,6 +23,7 @@ public class MainFrame extends JFrame {
         contenedor.add(new PanelReglas(this), "reglas");
         contenedor.add(new PanelPersonaje(this, gamePanel), "personaje");
         contenedor.add(gamePanel, "juego");
+        contenedor.add(new PanelUsuario(this), "usuario");
 
         add(contenedor);
         setVisible(true);
@@ -38,5 +40,14 @@ public class MainFrame extends JFrame {
             controller.GameController controller = new controller.GameController(gamePanel);
             new Thread(controller).start();
         }
+    }
+
+    public void setNombreJugador(String nombre) {
+        this.nombreJugador = nombre;
+        gamePanel.setNombreJugador(nombre); // lo pasa al panel
+    }
+
+    public String getNombreJugador() {
+        return nombreJugador;
     }
 }

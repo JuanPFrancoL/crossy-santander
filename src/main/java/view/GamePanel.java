@@ -18,6 +18,7 @@ public class GamePanel extends JPanel {
     private List<Bus> buses;
     private List<Taxi> taxis;
     private Jugador jugador;
+    private String nombreJugador;
 
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
@@ -134,6 +135,13 @@ public class GamePanel extends JPanel {
     public void dibujarCiclovia(Graphics2D g, int y) {
         g.setColor(carriles);
         g.fillRect(0, y, 1000, 30);
+    }
+
+    public void setNombreJugador(String nombre) {
+        this.nombreJugador = nombre;
+        if (jugador != null) {
+            jugador.setNombreJugador(nombre);
+        }
     }
 
 
